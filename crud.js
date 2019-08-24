@@ -1,26 +1,18 @@
 var express = require('express'),
     mongoose = require('mongoose'),
+    
     swaggerUi = require('swagger-ui-express'),
     swaggerDocument = require('./swagger.json');
-    // bodyParser = require('body-parser'),
-    jwt = require('jsonwebtoken'),
+    
     port = 4007,
     router = express.Router(),
     fs = require('fs'),
     http = require('http'),
+    
     app = express(),
     schema = mongoose.Schema;
-// app.use(bodyParser());
-mongoose.connect('mongodb://localhost:27017/newSensor', { useNewUrlParser: true });
-// app.set('superSecret', 'secret');
-
-// var pkey = fs.readFileSync('/Users/varsha/Desktop/conf/new/server-key.pem');
-// var certificate = fs.readFileSync('/Users/varsha/Desktop/conf/new/server-cert.pem');
-// var credentials = {
-//     key: pkey,
-//     cert: certificate
-// };
-var httpServer = http.createServer(app);
+    mongoose.connect('mongodb://localhost:27017/newSensor', { useNewUrlParser: true });
+    httpServer = http.createServer(app);
 
 
 // Creating a mongoose schema
@@ -60,11 +52,9 @@ var userSchema = mongoose.Schema({
 // Creating a mongoose model for the schema
 var User = mongoose.model('users', userSchema);
 
-// GET
-router.route('/')
-    .get(function(req, res) {
-        res.send("Welcome to Sensor Dashboard")
-    });
+router.route('/').get(function(req, res) {
+    res.send("Welcome to Sensor Dashboard")
+});
 
 var getAllUsers = function(req, res){
     User.find({}, (function(err, newSensor) {
@@ -73,7 +63,35 @@ var getAllUsers = function(req, res){
     }));
 };
 
+var getUserById = function(req, res) {
+    User.findOne({ _id: req.params._id }, function(err, newSensor){
+        if (err) res.send(err);
+        res.send(newSensor);
+    });
+};
+
+var createUser = function(req, res){
+    var user = new User();
+    user._id = req.body._id;
+    user.name = req.body.name;
+ 
+    user.save(function(err) {
+        if (err) res.send(err);
+        res.json({ message: 'User info created!'});
+    });
+};
+
+var recent_sensors = function(req, res){
+    User.find().sort({ $natural: -1 }).limit(5).find(function(err, newSensor) {
+        if (err) res.send(err);
+        res.send(newSensor);
+    });
+};
+
+
 router.route('/sensors').get(getAllUsers);
+router.route('/sensors/:_id').get(getUserById);
+router.route('/recent_sensors/').get(recent_sensors);
 
 // router.route('/sensors')
 //     .get(function(req, res) {
