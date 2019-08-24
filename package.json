@@ -1,0 +1,27 @@
+{
+  "name": "expressjs-smart-home-dashboard",
+  "version": "1.0.0",
+  "description": "To start the Express server run : node crud.js",
+  "main": "crud.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/junevarsha/ExpressJS-Smart-Home-Dashboard.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/junevarsha/ExpressJS-Smart-Home-Dashboard/issues"
+  },
+  "homepage": "https://github.com/junevarsha/ExpressJS-Smart-Home-Dashboard#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.6.5",
+    "package.json": "^2.0.1",
+    "swagger-ui-express": "^4.0.7"
+  }
+}

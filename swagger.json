@@ -1,0 +1,40 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Simple ExpressJS REST API",
+    "description": "Smart Home Dashboard"
+  },
+  "host": "localhost:4005",
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/sensors": {
+      "get": {
+        "summary": "Get all sensors",
+        "responses": {
+          "200": {
+            "description": "OK" 
+          }
+        }
+      }
+    },
+    "/recent_sensors": {
+      "get": {
+        "summary": "Get the recent 5 sensors",
+        "responses": {
+          "200": {
+            "description": "OK" 
+          }
+        }
+      }
+    }  
+  }
+}
