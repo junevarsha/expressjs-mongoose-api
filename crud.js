@@ -5,7 +5,7 @@ var express = require('express'),
     router = express.Router(),
     fs = require('fs'),
     http = require('http'),
-    
+    bodyParser = require('body-parser');
     app = express(),
     schema = mongoose.Schema;
     mongoose.connect('mongodb://localhost:27017/dashboard', { useNewUrlParser: true });
@@ -46,9 +46,12 @@ var recentSensors = function(req, res){
 };
 
 // Routes
-router.route('/sensors').get(getAllUsers).post(createUser);
+router.route('/sensors').get(getAllUsers)
+router.route('/create_sensor').post(createUser);
 router.route('/sensors/:_id').get(getUserById);
 router.route('/recent_sensors/').get(recentSensors);
 
+app.use(bodyParser.json()); // support json encoded bodies
+app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 app.use('/', router);
 httpServer.listen(port);
